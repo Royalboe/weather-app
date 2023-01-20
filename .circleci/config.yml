@@ -24,7 +24,7 @@ jobs:
     steps:
       - run:
           name: "Saves output"
-          command: "echo hello ayomide > output.txt"
+          command: echo "hello ayomide" > ~/output.txt
       - persist_to_workspace:
           root: ~/
           paths:
