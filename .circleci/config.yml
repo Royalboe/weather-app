@@ -66,6 +66,7 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
+      - say-hello
       - saves-output
       - print-output:
           requires:
