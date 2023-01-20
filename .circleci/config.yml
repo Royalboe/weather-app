@@ -52,7 +52,17 @@ jobs:
       - run:
           name: "Print hello"
           command: "cat ~/output.txt"
-    
+
+  failed:
+    docker:
+      - image: cimg/node:12.16
+    steps:
+      - run: return 1
+      - run:
+          name: failed-jobs
+          command: echo you failed successfully
+          when: on_fail
+
   print-name:
     docker:
       - image: cimg/node:12.16
@@ -61,12 +71,15 @@ jobs:
           name: "say world"
           command: "echo Hello $MY_NAME"
 
+  
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   say-hello-workflow:
     jobs:
       - say-hello
+      - failed
       - saves-output
       - print-output:
           requires:
