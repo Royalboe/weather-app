@@ -26,19 +26,19 @@ jobs:
           name: "Saves output"
           command: "echo hello ayomide > output.txt"
       - persist_to_workspace:
-          root: /tmp/dir
+          root: ~/
           paths:
-            - /file
+            - output.txt
       
   print-output:
     docker:
       - image: cimg/node:12.16
     steps:
+      - attach_workspace:
+          at: ~/
       - run:
           name: "Print hello"
-          command: "cat output.txt"
-      - attach_workspace:
-          at: /tmp/dir
+          command: "cat ~/output.txt"
     
   print-name:
     docker:
